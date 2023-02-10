@@ -19,10 +19,12 @@ const port = 3000;
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
+    console.log("DB connection successful");
     app.listen(port, console.log(`Server is listening on port ${port}...`));
   } catch (error) {
     console.log(error);
   }
 };
+// ^^^ we want the DB connection before the server starts listening because the server does no good if we cant connect to the DB.
 
 start();
