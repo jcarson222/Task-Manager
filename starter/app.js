@@ -4,13 +4,10 @@ const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
 require("dotenv").config();
 // MIDDLEWARE ----------------------------
-
+app.use(express.static("./public")); // sets up front end
 app.use(express.json());
 
 // ROUTES --------------------------------
-app.get("/hello", (req, res) => {
-  res.send("Task Manager App");
-});
 
 app.use("/api/v1/tasks", tasks);
 
