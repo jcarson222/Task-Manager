@@ -3,6 +3,9 @@ const app = express();
 const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
 require("dotenv").config();
+const notFound = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
+
 // MIDDLEWARE ----------------------------
 app.use(express.static("./public")); // sets up front end
 app.use(express.json());
@@ -11,7 +14,14 @@ app.use(express.json());
 
 app.use("/api/v1/tasks", tasks);
 
-const port = 3000;
+app.use(notFound);
+
+app.use(errorHandlerMiddleware);
+
+const port = process.env.PORT || 3000;
+// ^^^ jessecarson@jesses-mbp starter % PORT=6000 node app.js
+// DB connection successful
+// Server is listening on port 6000...
 
 const start = async () => {
   try {
